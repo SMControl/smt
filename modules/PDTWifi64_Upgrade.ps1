@@ -3,8 +3,8 @@
 #
 # Define variables
 $currentVersionPath = "C:\Program Files (x86)\StationMaster\PDTWifi64.exe"
-$newVersionURL = "https://files.stationmaster.info/files/PDTWifi64.exe" # IMPORTANT: Replace with the actual URL
-$backupPath = "C:\winsm" # Path to move the old executable
+$newVersionURL = "https://files.stationmaster.info/files/PDTWifi64.exe"
+$backupPath = "C:\winsm"
 
 # Function to check for administrative privileges
 function Is-Admin {
