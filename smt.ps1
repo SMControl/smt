@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.22"
+Write-Host "smt.ps1 - Version 1.23"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
@@ -10,8 +10,8 @@ function Show-Menu {
     Write-Host "SM Tools" -ForegroundColor Yellow
     Write-Host "Please select an option:" -ForegroundColor Cyan
     Write-Host "-------------------------" -ForegroundColor Cyan # Added line
-    Write-Host "1. Smart Office Upgrade Assistant"
-    Write-Host "2. Stationmaster Firebird Installer"
+    Write-Host "1. SO Upgrade Assistant"
+    Write-Host "2. SM Firebird Installer"
     Write-Host "3. PDTWifi64 Upgrade"
     Write-Host "4. Update winsm with latest (Testing)" # Tagged as Testing
     Write-Host "5. Windows 11 Debloat"
