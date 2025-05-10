@@ -95,18 +95,18 @@ do {
         }
         "4" {
             try {
-                Show-Task-Details "Update winsm with latest" "Pulls latest of various common winsm tools, Handheld APK's, PDTWifi's etc." "irm $winsmUpdateUrl | iex"
+                Show-Task-Details "Update winsm with latest" "Pulls latest of various common winsm tools, Handheld APK's, PDTWifi's etc. NOT IMPLEMENTED YET" "irm $winsmUpdateUrl | iex"
             } catch {
                 Write-Host "Failed to launch Update winsm with latest. Error: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
             }
         }
         "5" {
-            Show-Task-Details "Windows 11 Debloat" "This tool removes unnecessary apps and services from Windows 11, improving system performance and reducing resource usage." "$windows11DebloatCommand"
+            Show-Task-Details "Windows 11 Debloat" "This tool removes games and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information." "$windows11DebloatCommand"
         }
         "6" {
             try {
-                Show-Task-Details "Windows Setup Utility" "This tool launches the Windows Setup Utility, allowing for customization of Windows installation options." "irm $windowsSetupUtilityUrl | iex"
+                Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information." "irm $windowsSetupUtilityUrl | iex"
             } catch {
                 Write-Host "Failed to launch Windows Setup Utility. Error: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
@@ -114,7 +114,7 @@ do {
         }
         "7" {
             try {
-                Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup." "irm $newPCSetupUrl | iex"
+                Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup. EARLY TESTING" "irm $newPCSetupUrl | iex"
             } catch {
                 Write-Host "Failed to launch Setup new PC. Error: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
@@ -122,7 +122,7 @@ do {
         }
         "8" { # Added case for "SM Services"
             try {
-                Show-Task-Details "SM Services" "This tool manages Sligo Manufacturing Services." "irm $smServicesUrl | iex"
+                Show-Task-Details "SM Services" "Manage all SM Windows Services. NOT IMPLEMENTED YET" "irm $smServicesUrl | iex"
             } catch {
                 Write-Host "Failed to launch SM Services. Error: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
