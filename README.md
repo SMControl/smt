@@ -13,7 +13,8 @@ The script offers the following options:
 5.  **Windows 11 Debloat:** Removes unnecessary apps and services from Windows 11 to improve system performance.
 6.  **Windows Setup Utility:** Launches the Windows Setup Utility for customizing Windows installation options.
 7.  **Setup new PC (Testing):** Assistant Script to help guide through new PC Setup.
-8.  **Exit:** Exits the script.
+8.  **SM Services:** Manage SO System Services
+9.  **Exit:** Exits the script.
 
 ### Run in Admin Powershell / Terminal
 
