@@ -102,11 +102,11 @@ do {
             }
         }
         "5" {
-            Show-Task-Details "Windows 11 Debloat" "This tool removes games and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information." "$windows11DebloatCommand"
+            Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand"
         }
         "6" {
             try {
-                Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information." "irm $windowsSetupUtilityUrl | iex"
+                Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information. Only use if you understand what it does." "irm $windowsSetupUtilityUrl | iex"
             } catch {
                 Write-Host "Failed to launch Windows Setup Utility. Error: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
