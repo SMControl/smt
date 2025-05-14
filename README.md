@@ -1,20 +1,19 @@
 # SM Tools
 
-![SM Tools](https://github.com/SMControl/smt/blob/main/2025-05-10_0746_.png)
+[TODO - Screenshot of Menu here]
 
 ### Features
 
 The script offers the following options:
 
-1.  **SO Upgrade Assistant:** Assists with the pre- and post-upgrade tasks for SO.
-2.  **Stationmaster Firebird Installer:** Automatically installs Firebird with the required settings.
+1.  [**SO Upgrade Assistant:** Assists with the pre- and post-upgrade tasks for SO.](https://github.com/SMControl/SO_Upgrade)
+2.  [**SM Firebird Installer:** Automatically installs Firebird with the required settings.](https://github.com/SMControl/SM_Firebird_Installer)
 3.  **PDTWifi64 Upgrade:** Pulls the latest PDTWifi64.exe.
-4.  **Update winsm with latest (Testing):** Pulls the latest versions of various common winsm tools, Handheld APKs, and PDTWifi.
-5.  **Windows 11 Debloat:** Removes unnecessary apps and services from Windows 11 to improve system performance.
-6.  **Windows Setup Utility:** Launches the Windows Setup Utility for customizing Windows installation options.
-7.  **Setup new PC (Testing):** Assistant Script to help guide through new PC Setup.
-8.  **SM Services:** Manage SO System Services
-9.  **Exit:** Exits the script.
+4.  **Placeholder Option**
+5.  [**Windows 11 Debloat:** Removes unnecessary apps and services from Windows 11 to improve system performance.](https://github.com/Raphire/Win11Debloat)
+6.  [**Windows Setup Utility:** Launches the Windows Setup Utility for customizing Windows installation options.](https://github.com/ChrisTitusTech/winutil)
+7.  [**Setup new PC (Testing):** Assistant Script to help guide through new PC Setup.](https://github.com/SMControl/smpc)
+8.  [**SM Services:** Manage SO System Services](https://github.com/SMControl/SM_Services)
 
 ### Run in Admin Powershell / Terminal
 
