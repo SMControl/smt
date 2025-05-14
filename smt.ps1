@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.25"
+Write-Host "smt.ps1 - Version 1.26"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.25
+    # PartVersion-1.26
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -17,15 +17,15 @@ function Show-Menu {
     Write-Host "5. Windows 11 Debloat"
     Write-Host "6. Windows Setup Utility"
     Write-Host "7. Setup new PC (Testing)"
-    Write-Host "8. SM Services (Testing)"  # Added "SM Services"
-    Write-Host "9. Exit"                    # Changed exit option number
+    Write-Host "8. SM Services (Testing)"
+    Write-Host "9. Exit"
     Read-Host "Enter your choice"
 }
 
 # Function to display task details and launch option
 function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.25
+    # PartVersion-1.26
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -39,7 +39,15 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     switch ($choice) {
         "1" {
             Write-Host "Launching $taskName..." -ForegroundColor Green
-            Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
+            # Execute the command in the current session and wait for completion
+            try {
+                Invoke-Expression $launchCommand
+            } catch {
+                Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
+                Start-Sleep -Seconds 5
+            }
+            Write-Host "Press Enter to return to the main menu..." -ForegroundColor Yellow
+            Read-Host
         }
         "2" {
             # Do nothing, the script will return to the main menu
@@ -52,7 +60,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.25
+# PartVersion-1.26
 # -----
 
 # Define URLs for each task
@@ -63,7 +71,7 @@ $winsmUpdateUrl = "https://your-winsmupdate.com/update.ps1"
 $windows11DebloatCommand = "& ([scriptblock]::Create((irm ""https://debloat.raphi.re/""))) -RunDefaults -Silent"
 $windowsSetupUtilityUrl = "christitus.com/win"
 $newPCSetupUrl = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
-$smServicesUrl = "https://your-smservices.com/SM_Services.ps1" # Added URL for SM Services
+$smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 
 do {
     $menuChoice = Show-Menu
@@ -137,4 +145,4 @@ do {
             Start-Sleep -Seconds 2
         }
     }
-} while ($menuChoice -ne "9") # Changed from 8 to 9
+} while ($menuChoice -ne "9")
