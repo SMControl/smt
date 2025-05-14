@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.33"
+Write-Host "smt.ps1 - Version 1.35"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.33
+    # PartVersion-1.35
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -14,18 +14,18 @@ function Show-Menu {
     Write-Host "2. SM Firebird Installer"
     Write-Host "3. PDTWifi64 Upgrade"
     Write-Host "4. Update winsm with latest (Testing)"
-    Write-Host "5. Windows 11 Debloat"
-    Write-Host "6. Windows Setup Utility"
-    Write-Host "7. Setup new PC (Testing)"
-    Write-Host "8. SM Services (Testing)"
-    Write-Host "9. Exit"
+    Write-Host "5. Windows 11 Debloat [BROKEN]" # Added Task 5 back and marked as broken
+    Write-Host "6. Windows Setup Utility" # Renumbered from 5
+    Write-Host "7. Setup new PC (Testing)" # Renumbered from 6
+    Write-Host "8. SM Services (Testing)" # Renumbered from 7
+    Write-Host "9. Exit"                    # Renumbered from 8
     Read-Host "Enter your choice"
 }
 
 # Function to display task details and launch option
-function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false, $isDebloat = $false) {
+function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.33
+    # PartVersion-1.35
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -41,13 +41,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
             Write-Host "Launching $taskName..." -ForegroundColor Green
             if ($external) {
                 # Launch in a new PowerShell window
-                if ($isDebloat) {
-                    Start-Process powershell.exe -ArgumentList "-NoExit -Command ""& ([scriptblock]::Create((irm 'https://debloat.raphi.re/'))) -RunDefaults -Silent"""
-                }
-                else
-                {
-                    Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
-                }
+                Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
                 
             } else {
                 # Execute the command using irm and iex
@@ -72,7 +66,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.33
+# PartVersion-1.35
 # -----
 
 # Define URLs for each task
@@ -80,7 +74,7 @@ $smartOfficeUpgradeUrl = "https://raw.githubusercontent.com/SMControl/SO_Upgrade
 $stationmasterFirebirdUrl = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
 $pdtWifi64UpgradeUrl = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
 $winsmUpdateUrl = "https://your-winsmupdate.com/update.ps1"
-$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent'
+$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent' # Added back - may need this later
 $windowsSetupUtilityUrl = "christitus.com/win"
 $newPCSetupUrl = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
 $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
@@ -88,7 +82,7 @@ $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 # Function to run the main script logic
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.33
+    # PartVersion-1.35
     # -----
     do {
         $menuChoice = Show-Menu
@@ -127,9 +121,10 @@ function Run-Main-Logic {
                 }
             }
             "5" {
-                Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does."  -external:$true -isDebloat:$true # Launch externally
+                #Task 5 Added back
+                Show-Task-Details "Windows 11 Debloat [BROKEN]" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand" -external:$true # Launch externally
             }
-            "6" {
+            "6" { # Renumbered from 5
                 try {
                     Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information. Only use if you understand what it does." $windowsSetupUtilityUrl
                 } catch {
@@ -137,7 +132,7 @@ function Run-Main-Logic {
                     Start-Sleep -Seconds 5
                 }
             }
-            "7" {
+            "7" { # Renumbered from 6
                 try {
                     Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup. EARLY TESTING" $newPCSetupUrl
                 } catch {
@@ -145,7 +140,7 @@ function Run-Main-Logic {
                     Start-Sleep -Seconds 5
                 }
             }
-            "8" { # Added case for "SM Services"
+            "8" { # Renumbered from 7 and Added case for "SM Services"
                 try {
                     Show-Task-Details "SM Services" "Manage all SM Windows Services. NOT IMPLEMENTED YET" $smServicesUrl
                 } catch {
@@ -153,7 +148,7 @@ function Run-Main-Logic {
                     Start-Sleep -Seconds 5
                 }
             }
-            "9" {
+            "9" { # Renumbered from 8
                 Write-Host "Exiting..." -ForegroundColor Yellow
                 break
             }
@@ -162,7 +157,7 @@ function Run-Main-Logic {
                 Start-Sleep -Seconds 2
             }
         }
-    } while ($menuChoice -ne "9")
+    } while ($menuChoice -ne "9") # Renumbered from 8
 }
 
 # Call the main logic function
