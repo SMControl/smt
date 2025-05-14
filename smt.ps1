@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.36"
+Write-Host "smt.ps1 - Version 1.38"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.36
+    # PartVersion-1.38
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -13,19 +13,15 @@ function Show-Menu {
     Write-Host "1. SO Upgrade Assistant"
     Write-Host "2. SM Firebird Installer"
     Write-Host "3. PDTWifi64 Upgrade"
-    Write-Host "4. Update winsm with latest (Testing)"
-    Write-Host "5. Windows 11 Debloat [BROKEN]" # Added Task 5 back and marked as broken
-    Write-Host "6. Windows Setup Utility" # Renumbered from 5
-    Write-Host "7. Setup new PC (Testing)" # Renumbered from 6
-    Write-Host "8. SM Services (Testing)" # Renumbered from 7
-    Write-Host "9. Exit"                    # Renumbered from 8
-    Read-Host "Enter your choice"
+    Write-Host "4. Setup new PC (Testing)"
+    Write-Host "5. SM Services (Testing)"
+    Write-Host "Press Enter to Exit"
 }
 
 # Function to display task details and launch option
 function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.36
+    # PartVersion-1.38
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -66,7 +62,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.36
+# PartVersion-1.38
 # -----
 
 # Define URLs for each task
@@ -74,15 +70,13 @@ $smartOfficeUpgradeUrl = "https://raw.githubusercontent.com/SMControl/SO_Upgrade
 $stationmasterFirebirdUrl = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
 $pdtWifi64UpgradeUrl = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
 $winsmUpdateUrl = "https://your-winsmupdate.com/update.ps1"
-#$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent' # Added back - may need this later - commented out
-$windowsSetupUtilityUrl = "christitus.com/win"
 $newPCSetupUrl = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
 $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 
 # Function to run the main script logic
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.36
+    # PartVersion-1.38
     # -----
     do {
         $menuChoice = Show-Menu
@@ -114,33 +108,13 @@ function Run-Main-Logic {
             }
             "4" {
                 try {
-                    Show-Task-Details "Update winsm with latest" "Pulls latest of various common winsm tools, Handheld APK's, PDTWifi's etc. NOT IMPLEMENTED YET" $winsmUpdateUrl
-                } catch {
-                    Write-Host "Failed to launch Update winsm with latest. Error: $($_.Exception.Message)" -ForegroundColor Red
-                    Start-Sleep -Seconds 5
-                }
-            }
-            "5" {
-                #Task 5 Added back
-                Show-Task-Details "Windows 11 Debloat [BROKEN]" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "" -external:$true # Launch externally, pass empty string
-            }
-            "6" { # Renumbered from 5
-                try {
-                    Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information. Only use if you understand what it does." $windowsSetupUtilityUrl
-                } catch {
-                    Write-Host "Failed to launch Windows Setup Utility. Error: $($_.Exception.Message)" -ForegroundColor Red
-                    Start-Sleep -Seconds 5
-                }
-            }
-            "7" { # Renumbered from 6
-                try {
                     Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup. EARLY TESTING" $newPCSetupUrl
                 } catch {
                     Write-Host "Failed to launch Setup new PC. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
                 }
             }
-            "8" { # Renumbered from 7 and Added case for "SM Services"
+            "5" {
                 try {
                     Show-Task-Details "SM Services" "Manage all SM Windows Services. NOT IMPLEMENTED YET" $smServicesUrl
                 } catch {
@@ -148,7 +122,7 @@ function Run-Main-Logic {
                     Start-Sleep -Seconds 5
                 }
             }
-            "9" { # Renumbered from 8
+            "" {
                 Write-Host "Exiting..." -ForegroundColor Yellow
                 break
             }
@@ -157,7 +131,7 @@ function Run-Main-Logic {
                 Start-Sleep -Seconds 2
             }
         }
-    } while ($menuChoice -ne "9") # Renumbered from 8
+    } while ($menuChoice -ne "")
 }
 
 # Call the main logic function
