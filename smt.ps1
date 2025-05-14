@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.26"
+Write-Host "smt.ps1 - Version 1.27"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.26
+    # PartVersion-1.27
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -25,7 +25,7 @@ function Show-Menu {
 # Function to display task details and launch option
 function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.26
+    # PartVersion-1.27
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -60,7 +60,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.26
+# PartVersion-1.27
 # -----
 
 # Define URLs for each task
@@ -68,7 +68,10 @@ $smartOfficeUpgradeUrl = "https://raw.githubusercontent.com/SMControl/SO_Upgrade
 $stationmasterFirebirdUrl = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
 $pdtWifi64UpgradeUrl = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
 $winsmUpdateUrl = "https://your-winsmupdate.com/update.ps1"
-$windows11DebloatCommand = "& ([scriptblock]::Create((irm ""https://debloat.raphi.re/""))) -RunDefaults -Silent"
+
+# Changed the way $windows11DebloatCommand is defined.  Added single quotes and escaped the inner quotes.
+$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent'
+
 $windowsSetupUtilityUrl = "christitus.com/win"
 $newPCSetupUrl = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
 $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
