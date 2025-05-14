@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.28"
+Write-Host "smt.ps1 - Version 1.29"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.28
+    # PartVersion-1.29
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -25,7 +25,7 @@ function Show-Menu {
 # Function to display task details and launch option
 function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.28
+    # PartVersion-1.29
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -39,9 +39,28 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     switch ($choice) {
         "1" {
             Write-Host "Launching $taskName..." -ForegroundColor Green
-            # Execute the command in the current session and wait for completion
+            # Download and execute the script, handling errors
             try {
-                Invoke-Expression $launchCommand
+                $tempFile = New-TemporaryFile
+                Invoke-WebRequest -Uri $launchCommand -OutFile $tempFile
+                if ($LASTEXITCODE -eq 0) {
+                    Write-Host "Downloaded script successfully." -ForegroundColor Green
+                    try {
+                        # Execute the downloaded script
+                        & $tempFile
+                    } catch {
+                        Write-Host "Error executing script: $($_.Exception.Message)" -ForegroundColor Red
+                        Start-Sleep -Seconds 5
+                    } finally {
+                        # Remove the temporary file
+                        Remove-Item $tempFile -Force
+                    }
+                }
+                else {
+                    Write-Host "Error downloading script.  Last Exit Code: $($LASTEXITCODE)" -ForegroundColor Red
+                    Start-Sleep -Seconds 5
+                }
+               
             } catch {
                 Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
                 Start-Sleep -Seconds 5
@@ -60,7 +79,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.28
+# PartVersion-1.29
 # -----
 
 # Define URLs for each task
@@ -81,7 +100,7 @@ function Run-Main-Logic {
         switch ($menuChoice) {
             "1" {
                 try {
-                    Show-Task-Details "SO Upgrade Assistant" "This tool assists with the Pre and Post aspects of upgrading Smart Office." "irm $smartOfficeUpgradeUrl | iex"
+                    Show-Task-Details "SO Upgrade Assistant" "This tool assists with the Pre and Post aspects of upgrading Smart Office." $smartOfficeUpgradeUrl
                 } catch {
                     Write-Host "Failed to launch Smart Office Upgrade Assistant.  Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -89,7 +108,7 @@ function Run-Main-Logic {
             }
             "2" {
                 try {
-                    Show-Task-Details "SM Firebird Installer" "Fully and automatically installs Firebird with our required settings." "irm $stationmasterFirebirdUrl | iex"
+                    Show-Task-Details "SM Firebird Installer" "Fully and automatically installs Firebird with our required settings." $stationmasterFirebirdUrl
                 } catch {
                     Write-Host "Failed to launch Stationmaster Firebird Installer. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -97,7 +116,7 @@ function Run-Main-Logic {
             }
             "3" {
                 try {
-                    Show-Task-Details "PDTWifi64 Upgrade" "Pulls latest PDTWifi64.exe." "irm $pdtWifi64UpgradeUrl | iex"
+                    Show-Task-Details "PDTWifi64 Upgrade" "Pulls latest PDTWifi64.exe." $pdtWifi64UpgradeUrl
                 } catch {
                     Write-Host "Failed to launch PDTWifi64 Upgrade. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -105,7 +124,7 @@ function Run-Main-Logic {
             }
             "4" {
                 try {
-                    Show-Task-Details "Update winsm with latest" "Pulls latest of various common winsm tools, Handheld APK's, PDTWifi's etc. NOT IMPLEMENTED YET" "irm $winsmUpdateUrl | iex"
+                    Show-Task-Details "Update winsm with latest" "Pulls latest of various common winsm tools, Handheld APK's, PDTWifi's etc. NOT IMPLEMENTED YET" $winsmUpdateUrl
                 } catch {
                     Write-Host "Failed to launch Update winsm with latest. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -116,7 +135,7 @@ function Run-Main-Logic {
             }
             "6" {
                 try {
-                    Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information. Only use if you understand what it does." "irm $windowsSetupUtilityUrl | iex"
+                    Show-Task-Details "Windows Setup Utility" "Windows Setup & Misc Utility. See https://github.com/ChrisTitusTech/winutil for further information. Only use if you understand what it does." $windowsSetupUtilityUrl
                 } catch {
                     Write-Host "Failed to launch Windows Setup Utility. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -124,7 +143,7 @@ function Run-Main-Logic {
             }
             "7" {
                 try {
-                    Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup. EARLY TESTING" "irm $newPCSetupUrl | iex"
+                    Show-Task-Details "Setup new PC" "Assistant Script to help guide through new PC Setup. EARLY TESTING" $newPCSetupUrl
                 } catch {
                     Write-Host "Failed to launch Setup new PC. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
@@ -132,7 +151,7 @@ function Run-Main-Logic {
             }
             "8" { # Added case for "SM Services"
                 try {
-                    Show-Task-Details "SM Services" "Manage all SM Windows Services. NOT IMPLEMENTED YET" "irm $smServicesUrl | iex"
+                    Show-Task-Details "SM Services" "Manage all SM Windows Services. NOT IMPLEMENTED YET" $smServicesUrl
                 } catch {
                     Write-Host "Failed to launch SM Services. Error: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
