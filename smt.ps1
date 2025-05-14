@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.32"
+Write-Host "smt.ps1 - Version 1.32.1"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
