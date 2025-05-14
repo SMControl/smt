@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.35"
+Write-Host "smt.ps1 - Version 1.36"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.35
+    # PartVersion-1.36
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -25,7 +25,7 @@ function Show-Menu {
 # Function to display task details and launch option
 function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.35
+    # PartVersion-1.36
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -66,7 +66,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.35
+# PartVersion-1.36
 # -----
 
 # Define URLs for each task
@@ -74,7 +74,7 @@ $smartOfficeUpgradeUrl = "https://raw.githubusercontent.com/SMControl/SO_Upgrade
 $stationmasterFirebirdUrl = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
 $pdtWifi64UpgradeUrl = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
 $winsmUpdateUrl = "https://your-winsmupdate.com/update.ps1"
-$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent' # Added back - may need this later
+#$windows11DebloatCommand = '& ([scriptblock]::Create((irm \'https://debloat.raphi.re/\'))) -RunDefaults -Silent' # Added back - may need this later - commented out
 $windowsSetupUtilityUrl = "christitus.com/win"
 $newPCSetupUrl = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
 $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
@@ -82,7 +82,7 @@ $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 # Function to run the main script logic
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.35
+    # PartVersion-1.36
     # -----
     do {
         $menuChoice = Show-Menu
@@ -122,7 +122,7 @@ function Run-Main-Logic {
             }
             "5" {
                 #Task 5 Added back
-                Show-Task-Details "Windows 11 Debloat [BROKEN]" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand" -external:$true # Launch externally
+                Show-Task-Details "Windows 11 Debloat [BROKEN]" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "" -external:$true # Launch externally, pass empty string
             }
             "6" { # Renumbered from 5
                 try {
