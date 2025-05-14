@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.43"
+Write-Host "smt.ps1 - Version 1.44"
 # Provides a menu of tasks to perform, and launches them directly.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.43
+    # PartVersion-1.44
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -28,7 +28,7 @@ function Show-Menu {
 # Function to launch the selected task
 function Launch-Task ($taskName, $launchCommand, $external = $false) {
     # Part 2 - Launch Task
-    # PartVersion-1.43
+    # PartVersion-1.44
     # -----
     Write-Host "Launching $taskName..." -ForegroundColor Green
     if ($external) {
@@ -39,14 +39,14 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
         try {
             Invoke-Expression "irm $launchCommand | iex"
         } catch {
-            Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host "Error launching $taskName $($_.Exception.Message)" -ForegroundColor Red
             Start-Sleep -Seconds 5
         }
     }
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.43
+# PartVersion-1.44
 # -----
 
 # Define URLs for each task
@@ -60,7 +60,7 @@ $taskUrls = @{
 
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.43
+    # PartVersion-1.44
     # -----
     do {
         $menuChoice = Show-Menu
