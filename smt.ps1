@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.29"
+Write-Host "smt.ps1 - Version 1.31"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.29
+    # PartVersion-1.31
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -23,9 +23,9 @@ function Show-Menu {
 }
 
 # Function to display task details and launch option
-function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
+function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.29
+    # PartVersion-1.31
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -39,34 +39,39 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
     switch ($choice) {
         "1" {
             Write-Host "Launching $taskName..." -ForegroundColor Green
-            # Download and execute the script, handling errors
-            try {
-                $tempFile = New-TemporaryFile
-                Invoke-WebRequest -Uri $launchCommand -OutFile $tempFile
-                if ($LASTEXITCODE -eq 0) {
-                    Write-Host "Downloaded script successfully." -ForegroundColor Green
-                    try {
-                        # Execute the downloaded script
-                        & $tempFile
-                    } catch {
-                        Write-Host "Error executing script: $($_.Exception.Message)" -ForegroundColor Red
-                        Start-Sleep -Seconds 5
-                    } finally {
-                        # Remove the temporary file
-                        Remove-Item $tempFile -Force
+            if ($external) {
+                # Launch in a new PowerShell window
+                Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
+            } else {
+                # Download and execute the script, handling errors
+                try {
+                    $tempFile = New-TemporaryFile
+                    Invoke-WebRequest -Uri $launchCommand -OutFile $tempFile
+                    if ($LASTEXITCODE -eq 0) {
+                        Write-Host "Downloaded script successfully." -ForegroundColor Green
+                        try {
+                            # Execute the downloaded script
+                            & $tempFile
+                        } catch {
+                            Write-Host "Error executing script: $($_.Exception.Message)" -ForegroundColor Red
+                            Start-Sleep -Seconds 5
+                        } finally {
+                            # Remove the temporary file
+                            Remove-Item $tempFile -Force
+                        }
                     }
-                }
-                else {
-                    Write-Host "Error downloading script.  Last Exit Code: $($LASTEXITCODE)" -ForegroundColor Red
+                    else {
+                        Write-Host "Error downloading script.  Last Exit Code: $($LASTEXITCODE)" -ForegroundColor Red
+                        Start-Sleep -Seconds 5
+                    }
+                   
+                } catch {
+                    Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
                 }
-               
-            } catch {
-                Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
-                Start-Sleep -Seconds 5
+                Write-Host "Press Enter to return to the main menu..." -ForegroundColor Yellow
+                Read-Host
             }
-            Write-Host "Press Enter to return to the main menu..." -ForegroundColor Yellow
-            Read-Host
         }
         "2" {
             # Do nothing, the script will return to the main menu
@@ -79,7 +84,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand) {
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.29
+# PartVersion-1.31
 # -----
 
 # Define URLs for each task
@@ -94,6 +99,9 @@ $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 
 # Function to run the main script logic
 function Run-Main-Logic {
+    # Part 4 - Main Script Logic
+    # PartVersion-1.31
+    # -----
     do {
         $menuChoice = Show-Menu
     
@@ -131,7 +139,7 @@ function Run-Main-Logic {
                 }
             }
             "5" {
-                Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand"
+                Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand" -external:$true # Launch externally
             }
             "6" {
                 try {
