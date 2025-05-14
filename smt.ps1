@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.32.1"
+Write-Host "smt.ps1 - Version 1.33"
 # Provides a menu of tasks to perform, shows details, and launches them.
 # 
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.32
+    # PartVersion-1.33
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -23,9 +23,9 @@ function Show-Menu {
 }
 
 # Function to display task details and launch option
-function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false) {
+function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $external = $false, $isDebloat = $false) {
     # Part 2 - Display Task Details and Launch Option
-    # PartVersion-1.32
+    # PartVersion-1.33
     # -----
     Clear-Host
     Write-Host $taskName -ForegroundColor Yellow
@@ -41,7 +41,14 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
             Write-Host "Launching $taskName..." -ForegroundColor Green
             if ($external) {
                 # Launch in a new PowerShell window
-                Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
+                if ($isDebloat) {
+                    Start-Process powershell.exe -ArgumentList "-NoExit -Command ""& ([scriptblock]::Create((irm 'https://debloat.raphi.re/'))) -RunDefaults -Silent"""
+                }
+                else
+                {
+                    Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
+                }
+                
             } else {
                 # Execute the command using irm and iex
                 try {
@@ -65,7 +72,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
 }
 
 # Part 3 - Main Script Logic
-# PartVersion-1.32
+# PartVersion-1.33
 # -----
 
 # Define URLs for each task
@@ -81,7 +88,7 @@ $smServicesUrl = "https://your-smservices.com/SM_Services.ps1"
 # Function to run the main script logic
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.32
+    # PartVersion-1.33
     # -----
     do {
         $menuChoice = Show-Menu
@@ -120,7 +127,7 @@ function Run-Main-Logic {
                 }
             }
             "5" {
-                Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does." "$windows11DebloatCommand" -external:$true # Launch externally
+                Show-Task-Details "Windows 11 Debloat" "This tool removes games, Ads and unnecessary rubbish from Windows 11. See https://github.com/Raphire/Win11Debloat for further information. Only use if you understand what it does."  -external:$true -isDebloat:$true # Launch externally
             }
             "6" {
                 try {
