@@ -47,7 +47,7 @@ function Show-Task-Details ($taskName, $taskDescription, $launchCommand, $extern
                 try {
                     Invoke-Expression "irm $launchCommand | iex"
                 } catch {
-                    Write-Host "Error launching $taskName: $($_.Exception.Message)" -ForegroundColor Red
+                    Write-Host "Error launching $taskName $($_.Exception.Message)" -ForegroundColor Red
                     Start-Sleep -Seconds 5
                 }
                 Write-Host "Press Enter to return to the main menu..." -ForegroundColor Yellow
