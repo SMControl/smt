@@ -1,27 +1,38 @@
-Write-Host "smt.ps1 - Version 1.46"
-# Provides a menu of tasks to perform, and launches them directly.
-# 
+Write-Host "smt.ps1 - Version 1.51"
+
+# Define task names and URLs
+$task1Name = "SO Upgrade Assistant"
+$task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
+$task2Name = "SM Firebird Installer"
+$task2Url = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
+$task3Name = "SM Tasks (Testing)"
+$task3Url = "https://your-smservices.com/SM_Services.ps1"
+$task4Name = "PDTWifi64 Upgrade"
+$task4Url = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
+$task5Name = "Setup new PC (Testing)"
+$task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
+
+
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.46
+    # PartVersion-1.51
     # -----
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
     Write-Host "Please select an option:" -ForegroundColor Cyan
     Write-Host "-------------------------" -ForegroundColor Cyan
     $menuOptions = @(
-        "1. SO Upgrade Assistant",
-        "2. SM Firebird Installer",
-        "3. PDTWifi64 Upgrade",
-        "4. Setup new PC (Testing)",
-        "5. SM Services (Testing)",
+        "1. $task1Name",
+        "2. $task2Name",
+        "3. $task3Name",
+        "4. $task4Name",
+        "5. $task5Name",
         "Press Enter to Exit"
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         Write-Host $menuOptions[$i]
     }
-    #  Changed from Read-Host "Enter your choice" to Read-Host "Enter your choice (or press Esc to quit)"
     $choice = Read-Host "Enter your choice (or press Esc to quit)"
     return $choice
 }
@@ -29,7 +40,7 @@ function Show-Menu {
 # Function to launch the selected task
 function Launch-Task ($taskName, $launchCommand, $external = $false) {
     # Part 2 - Launch Task
-    # PartVersion-1.46
+    # PartVersion-1.51
     # -----
     Write-Host "Launching $taskName..." -ForegroundColor Green
     if ($external) {
@@ -46,36 +57,35 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
     }
 }
 
-# Part 3 - Main Script Logic
-# PartVersion-1.46
-# -----
+
+
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.46
+    # PartVersion-1.51
     # -----
     do {
         $menuChoice = Show-Menu
     
-        if ($menuChoice -eq [char]27) { # Added this condition
+        if ($menuChoice -eq [char]27) {
             Write-Host "Exiting script..." -ForegroundColor Yellow
             break
         }
     
         switch ($menuChoice) {
             "1" {
-                Launch-Task "SO Upgrade Assistant" "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
+                Launch-Task $task1Name $task1Url
             }
             "2" {
-                Launch-Task "SM Firebird Installer" "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
+                Launch-Task $task2Name $task2Url
             }
             "3" {
-                Launch-Task "PDTWifi64 Upgrade" "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
+                Launch-Task $task3Name $task3Url
             }
             "4" {
-                Launch-Task "Setup new PC" "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
+                Launch-Task $task4Name $task4Url
             }
             "5" {
-                Launch-Task "SM Services" "https://your-smservices.com/SM_Services.ps1"
+                Launch-Task $task5Name $task5Url
             }
             "" {
                 Write-Host "Exiting..." -ForegroundColor Yellow
