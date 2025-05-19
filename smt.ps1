@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.51"
+Write-Host "smt.ps1 - Version 1.52"
 
 # Define task names and URLs
 $task1Name = "SO Upgrade Assistant"
@@ -22,18 +22,19 @@ function Show-Menu {
     Write-Host "SM Tools" -ForegroundColor Yellow
     Write-Host "Please select an option:" -ForegroundColor Cyan
     Write-Host "-------------------------" -ForegroundColor Cyan
+    Write-Host " "
     $menuOptions = @(
         "1. $task1Name",
         "2. $task2Name",
         "3. $task3Name",
         "4. $task4Name",
         "5. $task5Name",
-        "Press Enter to Exit"
+        Write-Host " "
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         Write-Host $menuOptions[$i]
     }
-    $choice = Read-Host "Enter your choice (or press Esc to quit)"
+    $choice = Read-Host "Enter Selection or Press Enter to exit..."
     return $choice
 }
 
