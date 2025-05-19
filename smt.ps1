@@ -29,7 +29,6 @@ function Show-Menu {
         "3. $task3Name",
         "4. $task4Name",
         "5. $task5Name",
-        Write-Host " "
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         Write-Host $menuOptions[$i]
