@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.56"
+Write-Host "smt.ps1 - Version 1.57"
 
 # Define task names and URLs
 $task1Name = "SO Upgrade Assistant"
@@ -16,7 +16,7 @@ $task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/sm
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.56
+    # PartVersion-1.57
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
     Write-Host "Please select an option:" -ForegroundColor Cyan
@@ -31,7 +31,7 @@ function Show-Menu {
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         Write-Host $menuOptions[$i]
     }
-    $choice = Read-Host "Enter your choice (or press Enter to quit)"
+    $choice = Read-Host "`nEnter your choice (or press Enter to quit)" # Added `n for a new line
     return $choice
 }
 
