@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.54"
+Write-Host "smt.ps1 - Version 1.55"
 
 # Define task names and URLs
 $task1Name = "SO Upgrade Assistant"
@@ -16,7 +16,7 @@ $task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/sm
 # Function to display menu and get user selection
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # PartVersion-1.54
+    # PartVersion-1.55
     # -----
     #LOCK=OFF
     Clear-Host
@@ -28,8 +28,8 @@ function Show-Menu {
         "2. $task2Name",
         "3. $task3Name",
         "4. $task4Name",
-        "5. $task5Name",
-        "Press Enter to Exit" # Changed from "Press Enter or Esc to Exit"
+        "5. $task5Name"
+        # Removed "Press Enter to Exit" from here
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         Write-Host $menuOptions[$i]
