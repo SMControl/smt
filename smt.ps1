@@ -1,10 +1,10 @@
-Write-Host "smt.ps1 - Version 1.57"
+Write-Host "smt.ps1 - Version 1.58"
 
 # Define task names and URLs
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
 $task2Name = "SM Firebird Installer"
-$task2Url = "https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1"
+$task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Scheduled Tasks"
 $task3Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/main/SM_Tasks.ps1"
 $task4Name = "PDTWifi Upgrade"
