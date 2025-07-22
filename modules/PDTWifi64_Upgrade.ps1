@@ -5,9 +5,9 @@
 #LOCK=OFF
 # Define variables
 $scriptName = "PDTWifi64_Upgrade.ps1"
-$scriptVersion = "1.23"
+$scriptVersion = "1.24"
 $currentVersionPath = "C:\Program Files (x86)\StationMaster\PDTWifi64.exe"
-$newVersionURL = "https://files.stationmaster.info/files/PDTWifi64.exe"
+$newVersionURL = "https://files.stationmaster.info/PDTWiFi/PDTWifi64.exe"
 $backupPath = "C:\winsm"
 $tempDownloadPath = Join-Path $env:TEMP "PDTWifi64_new.exe" # Temporary path for the downloaded new version for comparison
 
