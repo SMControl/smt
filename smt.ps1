@@ -1,4 +1,4 @@
-Write-Host "smt.ps1 - Version 1.60" # Script version incremented due to changes
+Write-Host "smt.ps1 - Version 1.61" 
 
 # Part 3 - Define Task Variables
 # PartVersion-1.1
@@ -6,7 +6,8 @@ Write-Host "smt.ps1 - Version 1.60" # Script version incremented due to changes
 # This section defines the names and corresponding URLs for the various tasks available in the SM Tools menu.
 # These variables are used throughout the script to display menu options and launch the selected tasks.
 $task1Name = "SO Upgrade Assistant"
-$task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua_OLD_SAFE.ps1"
+$task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
+#$task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua_OLD_SAFE.ps1" #easy toggle to terminal version if problem
 $task2Name = "SM Firebird Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Scheduled Tasks"
