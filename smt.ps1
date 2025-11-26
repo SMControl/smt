@@ -12,9 +12,9 @@ $task2Name = "SM Firebird Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Scheduled Tasks"
 $task3Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/main/SM_Tasks.ps1"
-$task4Name = "PDTWifi Upgrade (WIP)"
+$task4Name = "[TESTING] PDTWifi Upgrade (WIP)"
 $task4Url = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
-$task5Name = "PC Transfer (WIP)"
+$task5Name = "[TESTING] PC Transfer (WIP)"
 $task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
 
 
