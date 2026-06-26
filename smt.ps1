@@ -1,7 +1,7 @@
-Write-Host "smt.ps1 - Version 1.62"
+# Increament Version number each time we update script
+Write-Host "smt.ps1 - Version 1.63"
 # Part 0 - Set Window Geometry
 # PartVersion-1.0
-#LOCK=OFF
 Add-Type @"
     using System;
     using System.Runtime.InteropServices;
@@ -15,13 +15,12 @@ Add-Type @"
 $consoleWindow = [Window]::GetConsoleWindow()
 Add-Type -AssemblyName System.Windows.Forms
 $screenHeight = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea.Height
-$windowHeight = 600
-$windowWidth = 800
+$windowHeight = 300
+$windowWidth = 500
 $posY = $screenHeight - $windowHeight
 [Window]::MoveWindow($consoleWindow, 0, $posY, $windowWidth, $windowHeight, $true) | Out-Null
 # Part 3 - Define Task Variables
 # PartVersion-1.1
-#LOCK=OFF
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
 $task2Name = "SM Firebird Installer"
@@ -35,7 +34,6 @@ $task3Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/mai
 function Show-Menu {
     # Part 1 - Display Menu Options
     # PartVersion-1.58
-    #LOCK=OFF
     Clear-Host
     Write-Host "SM Tools" -ForegroundColor Yellow
     Write-Host "Please select an option:" -ForegroundColor Cyan
@@ -68,7 +66,6 @@ function Show-Menu {
 function Launch-Task ($taskName, $launchCommand, $external = $false) {
     # Part 2 - Launch Task
     # PartVersion-1.52
-    #LOCK=OFF
     Write-Host "Launching $taskName..." -ForegroundColor Green
     if ($external) {
         Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
@@ -86,7 +83,6 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
     # PartVersion-1.53
-    #LOCK=OFF
     do {
         $menuChoice = Show-Menu
         if ($menuChoice -eq [char]27) {
