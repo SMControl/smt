@@ -1,4 +1,25 @@
-Write-Host "smt.ps1 - Version 1.61" 
+Write-Host "smt.ps1 - Version 1.61"
+
+# Part 0 - Set Window Geometry
+# PartVersion-1.0
+#LOCK=OFF
+# This section positions the PowerShell console window at the top-left corner of the screen
+# and sets a reasonable window size for better visibility.
+Add-Type @"
+    using System;
+    using System.Runtime.InteropServices;
+    public class Window {
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetConsoleWindow();
+        
+        [DllImport("user32.dll")]
+        public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+    }
+"@
+
+$consoleWindow = [Window]::GetConsoleWindow()
+# Position at top-left (0,0) with width=800px, height=600px
+[Window]::MoveWindow($consoleWindow, 0, 0, 800, 600, $true) | Out-Null
 
 # Part 3 - Define Task Variables
 # PartVersion-1.1
@@ -7,15 +28,14 @@ Write-Host "smt.ps1 - Version 1.61"
 # These variables are used throughout the script to display menu options and launch the selected tasks.
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
-#$task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua_OLD_SAFE.ps1" #easy toggle to terminal version if problem
 $task2Name = "SM Firebird Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Scheduled Tasks"
 $task3Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/main/SM_Tasks.ps1"
-$task4Name = "[TESTING] PDTWifi Upgrade (WIP)"
-$task4Url = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1"
-$task5Name = "[TESTING] PC Transfer (WIP)"
-$task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1"
+# $task4Name = "PDTWifi Upgrade (WIP)" # DISABLED
+# $task4Url = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1" # DISABLED
+# $task5Name = "PC Transfer (WIP)" # DISABLED
+# $task5Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1" # DISABLED
 
 
 # Function to display menu and get user selection
@@ -34,23 +54,26 @@ function Show-Menu {
     $firebirdFolderPath = "C:\Program Files (x86)\Firebird\Firebird_4_0"
     if (Test-Path $firebirdFolderPath -PathType Container) {
         $firebirdColor = "Green" # Folder exists, display in green
-    } else {
+    }
+    else {
         $firebirdColor = "Yellow" # Folder does not exist, display in yellow
     }
 
     $menuOptions = @(
         "1. $task1Name",
         "2. $task2Name", # This line will be handled separately for color
-        "3. $task3Name",
-        "4. $task4Name",
-        "5. $task5Name"
+        "3. $task3Name"
+        # "4. $task4Name", # DISABLED
+        # "5. $task5Name"  # DISABLED
     )
     # Loop through the defined menu options and display them.
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         # Special handling for the Firebird Installer entry to apply dynamic color
-        if ($i -eq 1) { # Index 1 corresponds to task2Name (SM Firebird Installer)
+        if ($i -eq 1) {
+            # Index 1 corresponds to task2Name (SM Firebird Installer)
             Write-Host $menuOptions[$i] -ForegroundColor $firebirdColor
-        } else {
+        }
+        else {
             Write-Host $menuOptions[$i]
         }
     }
@@ -70,12 +93,14 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
     if ($external) {
         # Launch the script in a new PowerShell window, keeping the window open after execution.
         Start-Process powershell.exe -ArgumentList "-NoExit -Command ""$launchCommand"""
-    } else {
+    }
+    else {
         # Execute the command by downloading the script from the URL and invoking it.
         # irm (Invoke-RestMethod) downloads the content, and iex (Invoke-Expression) executes it.
         try {
             Invoke-Expression "irm $launchCommand | iex"
-        } catch {
+        }
+        catch {
             # Catch any errors during the launch process and display an error message in red.
             Write-Host "Error launching $taskName. Error Details: $($_.Exception.Message)" -ForegroundColor Red
             Start-Sleep -Seconds 5 # Pause to allow the user to read the error message
@@ -87,7 +112,7 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
 # Main script logic function
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # PartVersion-1.52
+    # PartVersion-1.53
     #LOCK=OFF
     # This is the core logic of the script, handling the menu display and task launching loop.
     do {
@@ -111,12 +136,13 @@ function Run-Main-Logic {
             "3" {
                 Launch-Task $task3Name $task3Url
             }
-            "4" {
-                Launch-Task $task4Name $task4Url
-            }
-            "5" {
-                Launch-Task $task5Name $task5Url
-            }
+            # "4" { # DISABLED - PDTWifi Upgrade (WIP)
+            #     Launch-Task $task4Name $task4Url
+            # }
+            # "5" { # DISABLED - PC Transfer (WIP)
+            #     Write-Host "This feature is currently disabled." -ForegroundColor Gray
+            #     Start-Sleep -Seconds 2
+            # }
             "" {
                 # If the user presses Enter without typing anything, exit the script.
                 Write-Host "Exiting..." -ForegroundColor Yellow
