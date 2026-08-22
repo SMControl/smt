@@ -1,5 +1,5 @@
-# smt.ps1 v1.64
-Write-Host "smt.ps1 - Version 1.64"
+# smt.ps1 v1.65
+Write-Host "smt.ps1 - Version 1.65"
 # Part 0 - Set Window Geometry
 # [PartVersion v1.0]
 Add-Type @"
@@ -20,13 +20,13 @@ $windowWidth = 500
 $posY = $screenHeight - $windowHeight
 [Window]::MoveWindow($consoleWindow, 0, $posY, $windowWidth, $windowHeight, $true) | Out-Null
 # Part 3 - Define Task Variables
-# [PartVersion v1.2]
+# [PartVersion v1.3]
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
 $task2Name = "SM Firebird 3 Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Firebird 5 Installer"
-$task3Url = "" # Placeholder URL
+$task3Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/2c12a9c77a076efa76bfd52242061b896db111d1/modules/module_firebird_v5_32bit.ps1"
 $task4Name = "SM Scheduled Tasks"
 $task4Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/main/SM_Tasks.ps1"
 # $task5Name = "PDTWifi Upgrade (WIP)" # DISABLED
