@@ -1,5 +1,5 @@
-# smt.ps1 v1.65
-Write-Host "smt.ps1 - Version 1.65"
+# smt.ps1 v1.66
+Write-Host "smt.ps1 - Version 1.66"
 # Part 0 - Set Window Geometry
 # [PartVersion v1.0]
 Add-Type @"
@@ -35,20 +35,29 @@ $task4Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/mai
 # $task6Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1" # DISABLED
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # [PartVersion v1.60]
+    # [PartVersion v1.61]
     Clear-Host
     # Print the tool title in yellow (info color)
     Write-Host "SM Tools" -ForegroundColor Yellow
     # Print the menu prompt using default gray (the default text color)
     Write-Host "Please select an option:"
     Write-Host "-------------------------"
-    $firebirdFolderPath = "C:\Program Files (x86)\Firebird\Firebird_4_0"
-    if (Test-Path $firebirdFolderPath -PathType Container) {
-        $firebirdColor = "Green"
+    $firebird3FolderPath = "C:\Program Files (x86)\Firebird\Firebird_4_0"
+    if (Test-Path $firebird3FolderPath -PathType Container) {
+        $firebird3Color = "Green"
     }
     else {
-        $firebirdColor = "Yellow"
+        $firebird3Color = "Yellow"
     }
+
+    $firebird5FolderPath = "C:\Program Files (x86)\Firebird\Firebird_5_0"
+    if (Test-Path $firebird5FolderPath -PathType Container) {
+        $firebird5Color = "Green"
+    }
+    else {
+        $firebird5Color = "Yellow"
+    }
+
     $menuOptions = @(
         "1. $task1Name",
         "2. $task2Name",
@@ -59,7 +68,10 @@ function Show-Menu {
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
         if ($i -eq 1) {
-            Write-Host $menuOptions[$i] -ForegroundColor $firebirdColor
+            Write-Host $menuOptions[$i] -ForegroundColor $firebird3Color
+        }
+        elseif ($i -eq 2) {
+            Write-Host $menuOptions[$i] -ForegroundColor $firebird5Color
         }
         else {
             Write-Host $menuOptions[$i]
