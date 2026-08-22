@@ -1,6 +1,6 @@
 # SM Tools
 
-![SM Tools](https://github.com/SMControl/smt/blob/main/2025-05-23_1418_1.png)
+![SM Tools](https://github.com/SMControl/smt/blob/main/2026-08-22_2014_.png)
 
 ### Run in Admin Powershell / Terminal
 
