@@ -1,5 +1,5 @@
-# smt.ps1 v1.66
-Write-Host "smt.ps1 - Version 1.66"
+# smt.ps1 v1.67
+Write-Host "smt.ps1 - Version 1.67"
 # Part 0 - Set Window Geometry
 # [PartVersion v1.0]
 Add-Type @"
@@ -101,7 +101,10 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
 }
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # [PartVersion v1.54]
+    # [PartVersion v1.55]
+    $firebird3Path = "C:\Program Files (x86)\Firebird\Firebird_4_0"
+    $firebird5Path = "C:\Program Files (x86)\Firebird\Firebird_5_0"
+
     do {
         $menuChoice = Show-Menu
         if ($menuChoice -eq [char]27) {
@@ -113,10 +116,24 @@ function Run-Main-Logic {
                 Launch-Task $task1Name $task1Url
             }
             "2" {
-                Launch-Task $task2Name $task2Url
+                $fb3Installed = Test-Path $firebird3Path -PathType Container
+                $fb5Installed = Test-Path $firebird5Path -PathType Container
+                if ($fb3Installed -or $fb5Installed) {
+                    Write-Host "Cannot install $task2Name : A version of Firebird is already installed on this machine." -ForegroundColor Red
+                    Start-Sleep -Seconds 3
+                }
+                else {
+                    Launch-Task $task2Name $task2Url
+                }
             }
             "3" {
-                if ([string]::IsNullOrWhiteSpace($task3Url)) {
+                $fb3Installed = Test-Path $firebird3Path -PathType Container
+                $fb5Installed = Test-Path $firebird5Path -PathType Container
+                if ($fb3Installed -or $fb5Installed) {
+                    Write-Host "Cannot install $task3Name : A version of Firebird is already installed on this machine." -ForegroundColor Red
+                    Start-Sleep -Seconds 3
+                }
+                elseif ([string]::IsNullOrWhiteSpace($task3Url)) {
                     Write-Host "Placeholder task: URL not configured yet." -ForegroundColor Yellow
                     Start-Sleep -Seconds 2
                 }
