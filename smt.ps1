@@ -23,7 +23,7 @@ $posY = $screenHeight - $windowHeight
 # [PartVersion v1.3]
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
-$task2Name = "SM Firebird 3 Installer"
+$task2Name = "SM Firebird 4 Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Firebird 5 Installer"
 $task3Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/2c12a9c77a076efa76bfd52242061b896db111d1/modules/module_firebird_v5_32bit.ps1"
