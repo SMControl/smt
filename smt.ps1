@@ -1,5 +1,5 @@
-# smt.ps1 v1.67
-Write-Host "smt.ps1 - Version 1.67"
+# smt.ps1 v1.68
+Write-Host "smt.ps1 - Version 1.68"
 # Part 0 - Set Window Geometry
 # [PartVersion v1.0]
 Add-Type @"
@@ -20,22 +20,22 @@ $windowWidth = 500
 $posY = $screenHeight - $windowHeight
 [Window]::MoveWindow($consoleWindow, 0, $posY, $windowWidth, $windowHeight, $true) | Out-Null
 # Part 3 - Define Task Variables
-# [PartVersion v1.3]
+# [PartVersion v1.4]
 $task1Name = "SO Upgrade Assistant"
 $task1Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua.ps1"
-$task2Name = "SM Firebird 4 Installer"
+$task2Name = "SM Firebird 3 Installer"
 $task2Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/modules/module_firebird.ps1"
 $task3Name = "SM Firebird 5 Installer"
 $task3Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/2c12a9c77a076efa76bfd52242061b896db111d1/modules/module_firebird_v5_32bit.ps1"
 $task4Name = "SM Scheduled Tasks"
 $task4Url = "https://raw.githubusercontent.com/SMControl/SM_Tasks/refs/heads/main/SM_Tasks.ps1"
-# $task5Name = "PDTWifi Upgrade (WIP)" # DISABLED
-# $task5Url = "https://raw.githubusercontent.com/SMControl/smt/refs/heads/main/modules/PDTWifi64_Upgrade.ps1" # DISABLED
+$task5Name = "SO Test"
+$task5Url = "https://raw.githubusercontent.com/SMControl/SO_Upgrade/refs/heads/main/main/soua_t.ps1"
 # $task6Name = "PC Transfer (WIP)" # DISABLED
 # $task6Url = "https://raw.githubusercontent.com/SMControl/smpc/refs/heads/main/smpc.ps1" # DISABLED
 function Show-Menu {
     # Part 1 - Display Menu Options
-    # [PartVersion v1.61]
+    # [PartVersion v1.62]
     Clear-Host
     # Print the tool title in yellow (info color)
     Write-Host "SM Tools" -ForegroundColor Yellow
@@ -62,8 +62,8 @@ function Show-Menu {
         "1. $task1Name",
         "2. $task2Name",
         "3. $task3Name",
-        "4. $task4Name"
-        # "5. $task5Name" # DISABLED
+        "4. $task4Name",
+        "5. $task5Name"
         # "6. $task6Name" # DISABLED
     )
     for ($i = 0; $i -lt $menuOptions.Count; $i++) {
@@ -101,7 +101,7 @@ function Launch-Task ($taskName, $launchCommand, $external = $false) {
 }
 function Run-Main-Logic {
     # Part 4 - Main Script Logic
-    # [PartVersion v1.55]
+    # [PartVersion v1.56]
     $firebird3Path = "C:\Program Files (x86)\Firebird\Firebird_4_0"
     $firebird5Path = "C:\Program Files (x86)\Firebird\Firebird_5_0"
 
@@ -144,7 +144,9 @@ function Run-Main-Logic {
             "4" {
                 Launch-Task $task4Name $task4Url
             }
-            # "5" { Launch-Task $task5Name $task5Url } # DISABLED - PDTWifi Upgrade (WIP)
+            "5" {
+                Launch-Task $task5Name $task5Url
+            }
             # "6" { Launch-Task $task6Name $task6Url } # DISABLED - PC Transfer (WIP)
             "" {
                 Write-Host "Exiting..." -ForegroundColor Yellow
